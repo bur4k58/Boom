@@ -1,0 +1,49 @@
+﻿@using AP.BoomTP.Application.CQRS.UserCQRS
+@using AP.BoomTP.Application.CQRS.ScheduleCQRS
+@using AP.BoomTP.Domain
+@model AP.BoomTP.Application.CQRS.UserCQRS.UserDTO
+
+@{
+    Layout = "_Layout";
+}
+
+<h1>Detail</h1>
+<table class="table table-striped table-hover table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Voornaam</th>
+            <th scope="col">Achternaam</th>
+            <th scope="col">AuthId</th>
+            <th scope="col">Email</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Contract type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.FirstName</td>
+            <td>@Model.LastName</td>
+            <td>@Model.AuthId</td>
+            <td>@Model.Email</td>
+            <td>@Model.Role</td>
+            <td>@Model.ContractType</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h5>Planningen: </h5>
+@foreach (ScheduleDTO schedule in Model.Schedules)
+{
+    <div class="card">
+        <div class="card-body">
+            <p>@schedule.Date</p>
+            <p><a asp-controller="Schedule" asp-action="Details" asp-route-id="@schedule.Id">Ga naar planning</a></p>
+            <p><a asp-controller="Zone" asp-action="Details" asp-route-id="@schedule.ZoneId">Details van zone</a></p>
+            @foreach (var item in schedule.ScheduleTask)
+            {
+                <p>@item.Status</p>
+            }
+        </div>
+    </div>
+}

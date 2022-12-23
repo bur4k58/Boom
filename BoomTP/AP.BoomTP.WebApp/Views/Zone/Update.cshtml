@@ -1,0 +1,83 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.Zone
+@using AP.BoomTP.Application.CQRS.TreeSpeciesCQRS
+@using AP.BoomTP.Application.CQRS.GrowSiteCQRS
+@model UpdateZoneViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Zone - Update";
+}
+
+<form method="post" asp-controller="Zone" asp-action="Update">
+    <div class="form-group">
+        <label asp-for="Name">Naam</label>
+        <input class="form-control" asp-for="Name">
+    </div>
+    <div class="form-group">
+        <label asp-for="QrCode">Adress</label>
+        <input class="form-control" asp-for="QrCode">
+    </div>
+    <div class="form-group">
+        <label asp-for="Size">Size</label>
+        <input class="form-control" asp-for="Size">
+    </div>
+    <div class="form-group">
+        <label asp-for="GrowSiteId">Kweeksite</label>
+        <select name="GrowSiteId">
+            @foreach (GrowSiteDTO growSite in Model.GrowSites)
+            {
+                @if (growSite.Id.Equals(Model.TreeSpeciesId))
+                {
+                    <option value="@growSite.Id" selected>@growSite.Name </option>
+
+                }
+                else
+                {
+                    <option value="@growSite.Id">@growSite.Name </option>
+
+                }
+            }
+        </select>
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="GrowSiteId"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="TreeSpeciesId">Boomsoort</label>
+        <select name="TreeSpeciesId">
+            @foreach (TreeSpeciesDTO treeSpecies in Model.Trees)
+            {
+                @if (treeSpecies.Id.Equals(Model.TreeSpeciesId))
+                {
+                    <option value="@treeSpecies.Id" selected>@treeSpecies.Name </option>
+
+                }else{
+                    <option value="@treeSpecies.Id">@treeSpecies.Name </option>
+
+                }
+            }
+        </select>
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="TreeSpeciesId"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@section scripts{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+
+    <script>
+
+        $(function () {
+            $("#growSiteId").select2({
+                placeholder: "Kies een kweeksite",
+            });
+            $("#treeSpeciesId").select2({
+                placeholder: "Kies een boomsoort",
+            });
+        });
+    </script>
+}

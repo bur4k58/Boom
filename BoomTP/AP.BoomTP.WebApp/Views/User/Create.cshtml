@@ -1,0 +1,67 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.User
+@using AP.BoomTP.Domain
+@model CreateUserVievModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "User - Create";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<form method="post" asp-controller="User" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="FirstName">Voornaam</label>
+        <input class="form-control" asp-for="FirstName">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="FirstName"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName">Achternaam</label>
+        <input class="form-control" asp-for="LastName">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="LastName"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AuthId">AuthId</label>
+        <input class="form-control" asp-for="AuthId">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="AuthId"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Mail</label>
+        <input class="form-control" asp-for="Email">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="Email"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ContractType">Contract type</label>
+        <select class="form-control" id="ContractType" name="ContractType">
+            <option>Fulltime</option>
+            <option>Parttime</option>
+        </select>
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="ContractType"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Role">Rol</label>
+        <select class="form-control" id="Role" name="Role">
+            <option>Admin</option>
+            <option>Responsible</option>
+            <option>Worker</option>
+        </select>
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="Role"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

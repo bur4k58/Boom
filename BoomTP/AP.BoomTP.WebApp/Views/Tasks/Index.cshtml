@@ -1,0 +1,76 @@
+﻿@using AP.BoomTP.Application.CQRS.TasksCQRS
+@model AP.BoomTP.WebApp.ViewModels.Tasks.TaskListViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Taken";
+}
+
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<table class="table table-striped table-hover table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Beschrijving</th>
+            <th scope="col">Taakduur in minuten</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TasksDTO task in Model.Tasks)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.TaskTime minuten</td>
+                <td>
+                    <i type="button" data-toggle="modal" data-target="#delete-modal-@task.Id" class="fa fa-trash" style="color:red"></i>
+                </td>
+                <td>
+                    <a asp-action="Update" Text="Bewerken" asp-controller="Tasks" asp-route-id="@task.Id" role="button" class="fa fa-pencil"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Tasks" asp-action="Create" class="btn btn-labeled btn-primary">Taak toevoegen</a>
+
+
+@foreach (TasksDTO task in Model.Tasks)
+{
+    <div class="modal fade" id="delete-modal-@task.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete @task.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bent u zeker om @task.Title te verwijderen?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a asp-controller="Tasks" asp-action="Delete" asp-route-id="@task.Id" role="button" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<ul class="pagination">
+    @for (int i = 1; i < Model.TotalPages + 1; i++)
+    {
+        <li class="page-item @(i==Model.CurrentPage?"active":"")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+    }
+</ul>
+</html>

@@ -1,0 +1,24 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Fout.</h1>
+<h2 class="text-danger">Er is een fout opgetreden.</h2>
+
+
+@{
+    <p>@Model.ErrorCode</p>
+    <p>@Model.Message</p>
+}
+
+<p>Volg de regels als je een planning wilt aanmaken</p>
+<ul>
+    <li>Een zone mag per dag maximaal voor 1 medewerker ingepland worden.</li>
+    <li>Medewerkers mogen niet 2 dagen na elkaar in zelfde zone ingepland worden.</li>
+    <li>Een medewerker mag maximaal in 2 sites tewerkgesteld worden.</li>
+    <li>Een medewerker mag niet meer dan 8uur werken.</li>
+    <li>Een medewerker mag maximaal 4 taken per dag toegekend krijgen.</li>
+    <li>Fulltime mag niet meer dan 1 site in 1 week hebben.</li>
+    <li>Deeltijds mag niet meer dan 2 sites in 1 week hebben.</li>
+</ul>

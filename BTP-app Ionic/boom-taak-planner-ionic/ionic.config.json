@@ -1,0 +1,10 @@
+{
+  "name": "BoomTaakPlanner Ionic ",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}

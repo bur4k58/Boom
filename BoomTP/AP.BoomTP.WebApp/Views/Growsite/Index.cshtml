@@ -1,0 +1,84 @@
+﻿@using AP.BoomTP.Application.CQRS.GrowSiteCQRS
+@model AP.BoomTP.WebApp.ViewModels.Growsite.GrowSiteListViewModel
+
+@{
+    ViewBag.Title = "Kweeksite";
+}
+@{
+    Layout = "_Layout";
+}
+
+@*<ul class="pagination">
+    @for (int i = 1; i < Model.TotalPages + 1; i++)
+    {
+        <li class="page-item @(i==Model.CurrentPage?"active":"")">
+            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+        </li>
+    }
+</ul>*@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<table class="table table-striped table-hover table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Naam</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Plattegrond afbeelding</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (GrowSiteDTO growSite in Model.GrowSites)
+        {
+            <tr>
+                <td><a asp-controller="GrowSite" asp-action="Details" asp-route-id="@growSite.Id">@growSite.Name</a></td>
+                <td>@growSite.Address</td>
+                <td>
+                    <img src="~/Images/@growSite.Map" height="100px" width="100px" asp-append-version="true" />
+                </td>
+                <td>
+                    <i type="button" Text="Verwijderen" data-toggle="modal" data-target="#delete-modal-@growSite.Id" class="fa fa-trash" style="color:red"></i>
+                </td>
+                <td>
+                    <a asp-action="Update" Text="Bewerken" asp-controller="GrowSite" asp-route-id="@growSite.Id" role="button" class="fa fa-pencil"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="GrowSite" asp-action="Create" role="button" class="btn btn-labeled btn-primary">Kweeksite toevoegen</a>
+
+@foreach (GrowSiteDTO growSite in Model.GrowSites)
+{
+    <div class="modal fade" id="delete-modal-@growSite.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete @growSite.Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bent u zeker om @growSite.Name te verwijderen?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a asp-controller="GrowSite" asp-action="Delete" asp-route-id="@growSite.Id" role="button" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<ul class="pagination">
+    @for (int i = 1; i < Model.TotalPages + 1; i++)
+    {
+        <li class="page-item @(i==Model.CurrentPage?"active":"")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+    }
+</ul>
+</html>

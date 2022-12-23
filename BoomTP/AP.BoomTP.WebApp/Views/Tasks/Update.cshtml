@@ -1,0 +1,22 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.Tasks
+@model UpdateTasksViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Taak - Update";
+}
+
+<form method="post" asp-controller="Tasks" asp-action="Update">
+    <div class="form-group">
+        <label asp-for="Title">Titel</label>
+        <input class="form-control" asp-for="Title">
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Beschrijving</label>
+        <input class="form-control" asp-for="Description">
+    </div>
+    <div class="form-group">
+        <label asp-for="TaskTime">Taak duur</label>
+        <input class="form-control" asp-for="TaskTime">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

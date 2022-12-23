@@ -1,0 +1,23 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.Growsite
+@model UpdateGrowSiteViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "GrowSite - Update";
+}
+
+<form method="post" asp-controller="GrowSite" asp-action="Update">
+    <div class="form-group">
+        <label asp-for="Name">Naam</label>
+        <input class="form-control" asp-for="Name">
+    </div>
+    <div class="form-group">
+        <label asp-for="Address">Adress</label>
+        <input class="form-control" asp-for="Address">
+    </div>
+    <div class="form-group">
+        <label asp-for="Map">Link PDF</label>
+        <input class="form-control" asp-for="Map">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,42 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.User
+@model UpdateUserViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "User - Update";
+}
+
+<form method="post" asp-controller="User" asp-action="Update">
+    <div class="form-group">
+        <label asp-for="FirstName">Voornaam</label>
+        <input class="form-control" asp-for="FirstName">
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName">Achternaam</label>
+        <input class="form-control" asp-for="LastName">
+    </div>
+    <div class="form-group">
+        <label asp-for="AuthId">AuthId</label>
+        <input class="form-control" asp-for="AuthId">
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Mail</label>
+        <input class="form-control" asp-for="Email">
+    </div>
+    <div class="form-group">
+        <label asp-for="ContractType">Contract type</label>
+        <select class="form-control" id="ContractType" name="ContractType">
+            <option>Fulltime</option>
+            <option>Parttime</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Role">Rol</label>
+        <select class="form-control" id="Role" name="Role">
+            <option>Admin</option>
+            <option>Responsible</option>
+            <option>Worker</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      BoomTaakPlanner
+    </ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">BoomTaakPlanner</ion-title>
+    </ion-toolbar>
+    <div *ngIf="auth.user$ | async as user">
+      <div>{{user.name}}</div>
+    </div>
+  </ion-header>
+
+  <div id="container">
+    
+    <div class="limiter">
+      <div class="container-login100" style="background-image: url('../../assets/boomen.jpg');">
+        <div class="wrap-login100">
+          <form class="login100-form validate-form">
+            <span class="login100-form-logo">
+              <i class="zmdi zmdi-landscape"></i>
+              <img src="../../assets/tree.png" alt="icon">
+            </span>
+  
+            <span class="login100-form-title p-b-34 p-t-27">
+              Log in
+            </span>
+  
+            <div class="container-login100-form-btn">
+                <button *ngIf="(auth.isAuthenticated$ | async) === false" class="login100-form-btn" (click)="loginWithRedirect()">
+                  login
+                </button>
+                <button *ngIf="auth.isAuthenticated$ | async" class="login100-form-btn" (click)="logout()">
+                  logout
+                </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <ion-input style="background-color: gray;" type="text" [(ngModel)]="encodeText"></ion-input>
+  <ion-button ion-button block (click)="encode()">Encode</ion-button>
+</div>
+<div>
+  <ion-button style="position: fixed;
+  left: 0;
+  bottom: 10px;
+  right: 0;
+  width: 100%;" (click)="scan()">Scan</ion-button>
+  <div *ngIf="scannedData.text">
+    <label>Your barcode is</label>
+    <br>
+    <span>{{scannedData.text}}</span>
+  </div>
+    
+  
+    <div id="dropDownSelect1"></div>
+  </div>
+  
+</ion-content>

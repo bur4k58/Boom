@@ -1,0 +1,77 @@
+﻿@using AP.BoomTP.Application.CQRS.UserCQRS
+@model AP.BoomTP.WebApp.ViewModels.User.UserListViewModel
+
+@{
+    ViewBag.Title = "Gebruikers";
+}
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<table class="table table-striped table-hover table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Voornaam</th>
+            <th scope="col">Achternaam</th>
+            <th scope="col">AuthId</th>
+            <th scope="col">Rol</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UserDTO user in Model.Users)
+        {
+            <tr>
+                <td><a asp-controller="User" asp-action="Details" asp-route-id="@user.Id">@user.FirstName</a></td>
+                <td>@user.LastName</td>
+                <td>@user.AuthId</td>
+                <td>@user.Role</td>
+                <td>
+                    <i type="button" Text="Verwijderen" data-toggle="modal" data-target="#delete-modal-@user.Id" class="fa fa-trash" style="color:red"></i>
+                </td>
+                <td>
+                    <a asp-action="Update" Text="Bewerken" asp-controller="User" asp-route-id="@user.Id" role="button" class="fa fa-pencil"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="User" asp-action="Create" class="btn btn-labeled btn-primary">Gebruiker toevoegen</a>
+
+@foreach (UserDTO user in Model.Users)
+{
+    <div class="modal fade" id="delete-modal-@user.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete @user.FirstName</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bent u zeker om @user.FirstName te verwijderen?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" role="button" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<ul class="pagination">
+    @for (int i = 1; i < Model.TotalPages + 1; i++)
+    {
+        <li class="page-item @(i==Model.CurrentPage?"active":"")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+    }
+</ul>
+</html>

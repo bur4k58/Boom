@@ -1,0 +1,94 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.Schedule
+@using AP.BoomTP.Application.CQRS.TasksCQRS
+@using AP.BoomTP.Application.CQRS.ZoneCQRS
+@using AP.BoomTP.Application.CQRS.UserCQRS
+@using AP.BoomTP.Domain
+
+@model CreateScheduleViewModel
+
+@{
+    DateTime date = DateTime.Now;
+}
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Planning - Aanmaken";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<form method="post" asp-controller="Schedule" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Date">Date</label>
+        <input class="form-control" asp-for="Date" value="@date">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="Date"></span>
+        </div>
+    </div>
+    <div class="form-group" style="margin-top: 10px">
+        <label asp-for="UserId">Gebruiker</label>
+        <select name="UserId" id="userId">
+            <option value="">Kies een gebruiker</option>
+            @foreach (UserDTO user in Model.Users)
+            {
+                <option value="@user.Id">@user.FirstName @user.LastName</option>
+            }
+        </select>
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="UserId"></span>
+        </div>
+    </div>
+    <div class="form-group" style="margin-top: 10px">
+        <label asp-for="ZoneId">Zone</label>
+        <select name="ZoneId" id="zoneId">
+            <option value="">Kies een zone</option>
+            @foreach (ZoneDTO zone in Model.Zones)
+            {
+                <option value="@zone.Id">@zone.Name</option>
+            }
+        </select>
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="ZoneId"></span>
+        </div>
+    </div>
+     
+    <div class="form-group" style="margin-top: 10px">
+        <label asp-for="TaskId">Taken</label>
+        <select id="TaskId" name="TaskId" multipleclass="form-control" multiple>
+        <option value="">Kies taken</option>
+            @foreach (TasksDTO task in Model.Tasks)
+                {
+                <option value="@task.Id">@task.Title</option>
+                }
+        </select>
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="TaskId"></span>
+        </div>
+    </div>
+
+    @section scripts{
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+
+        <script>
+
+            $(function () {
+                $("#TaskId").select2({
+                  placeholder: "Kies taken",
+                });
+                $("#zoneId").select2();
+                $("#userId").select2();
+            });
+        </script>
+    }
+    
+        <button type="submit" class="btn btn-primary" style="margin-top: 15px">Submit</button>
+</form>
+<a class="nav-link" asp-controller="Tasks" asp-action="Create">Een nieuwe taak toevoegen</a>

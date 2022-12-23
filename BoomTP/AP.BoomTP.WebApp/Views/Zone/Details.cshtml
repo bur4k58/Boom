@@ -1,0 +1,31 @@
+﻿@using AP.BoomTP.Application.CQRS.ZoneCQRS
+@using AP.BoomTP.Domain
+@model AP.BoomTP.WebApp.ViewModels.Zone.DetailViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<h1>Detail</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Naam</th>
+            <th scope="col">Oppervlakte</th>
+            <th scope="col">QrCode</th>
+            <th scope="col">Kweeksite</th>
+            <th scope="col">Boomsoort</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>@Model.Size m²</td>
+            <td>
+                <img src="~/Images/@Model.QrCode" height="250px" width="250px" asp-append-version="true" />
+            </td>
+            <td><a asp-controller="GrowSite" asp-action="Details" asp-route-id="@Model.GrowSiteId">@Model.GrowSiteName</a></td>
+            <td><a asp-controller="TreeSpecies" asp-action="Details" asp-route-id="@Model.TreeSpeciesId">@Model.TreeSpeciesName</a></td>
+        </tr>
+    </tbody>
+</table>

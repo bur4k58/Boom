@@ -1,0 +1,39 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.Tasks
+@model CreateTasksViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Tasks - Create";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<form method="post" asp-controller="Tasks" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Title">Titel</label>
+        <input class="form-control" asp-for="Title">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="Title"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Beschrijving</label>
+        <input class="form-control" asp-for="Description">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="Description"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="TaskTime">Taak duur in minuten</label>
+        <input class="form-control" asp-for="TaskTime">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="TaskTime"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

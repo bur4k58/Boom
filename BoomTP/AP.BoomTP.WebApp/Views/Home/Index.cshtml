@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="container text-center" style="margin-top: 2.8vh;">
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <i class="fa-solid fa-calendar-days" id="schedule-icon"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Planningen</h5>
+                            <p class="card-text">Druk op de onderstaande knop om planningen toe te voegen, verwijderen en aan te passen.</p>
+                            <a asp-controller="Schedule" asp-action="Index" class="btn btn-primary">Ga naar planning</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <i class="fa-solid fa-tree-city" id="schedule-icon"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Kweeksites</h5>
+                            <p class="card-text">Druk op de onderstaande knop om Kweeksites toe te voegen, verwijderen en aan te passen.</p>
+                            <a asp-controller="GrowSite" asp-action="Index" class="btn btn-primary">Ga naar Kweeksites</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <i class="fa-solid fa-tree" id="schedule-icon"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Boomsoorten</h5>
+                            <p class="card-text">Druk op de onderstaande knop om Boomsoorten toe te voegen, verwijderen en aan te passen.</p>
+                            <a asp-controller="TreeSpecies" asp-action="Index" class="btn btn-primary">Ga naar boomsoorten</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 2vh;">
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <i class="fa-solid fa-chart-area" id="schedule-icon"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Zones</h5>
+                            <p class="card-text">Druk op de onderstaande knop om Zones toe te voegen, verwijderen en aan te passen.</p>
+                            <a asp-controller="Zone" asp-action="Index" class="btn btn-primary">Ga naar zones</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <i class="fa-solid fa-person-circle-plus" id="schedule-icon"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Medewerkers</h5>
+                            <p class="card-text">Druk op de onderstaande knop om Medewerkers toe te voegen, verwijderen en aan te passen.</p>
+                            <a asp-controller="User" asp-action="Index" class="btn btn-primary">Ga naar medewerkers</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <i class="fa-solid fa-plus" id="schedule-icon"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Task</h5>
+                            <p class="card-text">Druk op de onderstaande knop om Task toe te voegen, verwijderen en aan te passen.</p>
+                            <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary">Ga naar taken</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h1 class="display-4">Welcome in onze web applicatie</h1>
+        <p>U bent nog niet ingelogd</p>
+        <p><a asp-controller="Auth0" asp-action="Login">Klik om in te loggen</a></p>
+    }
+
+</div>
+<style>
+    container-icons{
+        display: inline-block;
+        margin-top: 4vh;
+
+      }
+    #schedule-icon{
+        margin: 20px 50px  0 50px ;
+        font-size: 120px;
+    }
+    .card{
+          box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+    }
+</style>

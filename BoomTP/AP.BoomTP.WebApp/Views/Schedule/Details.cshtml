@@ -1,0 +1,54 @@
+﻿@using AP.BoomTP.Application.CQRS.ScheduleCQRS
+@using AP.BoomTP.Application.CQRS.ScheduleStatusCQRS
+@using AP.BoomTP.Application.CQRS.TasksCQRS
+@model AP.BoomTP.WebApp.ViewModels.Schedule.DetailViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Planning - Detail";
+}
+
+<h1>Detail</h1>
+<table class="table table-striped table-hover table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Werker</th>
+            <th scope="col">Zone</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a asp-controller="User" asp-action="Details" asp-route-id="@Model.Schedule.UserId">Details van werker</a></td>
+            <td><a asp-controller="Zone" asp-action="Details" asp-route-id="@Model.Schedule.ZoneId">Details van zone</a></td>
+        </tr>
+    </tbody>
+        <thead>
+            <tr>
+                <th scope="col">Taken van planning</th>
+            </tr>
+        </thead>
+    <tbody>
+        @foreach (ScheduleTaskDetailDTO task in Model.ScheduleTasks)
+        {
+            <tr>
+                <td>@task.Tasks.Title</td>
+                <td>@task.Tasks.TaskTime minuten</td>
+                <td>@task.Tasks.Description</td>
+                @if (@task.Status == Status.Made)
+                {
+                    <td>Status: aangemaakt</td>
+                }
+                else if (@task.Status == Status.Start)
+                {
+                    <td>Status: gestart</td>
+                }
+                else
+                {
+                    <td>Status: afgehandeld</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

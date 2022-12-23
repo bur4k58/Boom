@@ -1,0 +1,49 @@
+<div id="main-content">
+  <ion-header>
+    <ion-toolbar class="headerTP">
+      <ion-buttons slot="start">
+        <ion-menu-button class="header-img" *ngIf="auth.user$ | async as user">      
+          <img src={{user.picture}} alt="" style="width: 70px; border-radius: 30%;" >
+        </ion-menu-button>
+      </ion-buttons >
+      <ion-title > Boom Taak Planner</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</div>
+
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar *ngIf="auth.user$ | async as user" style="text-align: center;">
+        <h3>{{user.name}}</h3>
+        <p>{{user.role}}</p>
+      </ion-toolbar>
+    </ion-header>
+      <ion-list>
+        <ion-item (click)="dataUser()" routerLink="/choice-page" routerLinkActive="active" ariaCurrentWhenActive="page">
+          <ion-icon  name="calendar" slot="start"></ion-icon>
+          <ion-lable>planning</ion-lable>
+        </ion-item>
+      </ion-list>
+      <ion-item (click)="dataNow()" routerLink="/choice-page" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <ion-icon name="calendar" slot="start"></ion-icon>
+        <ion-lable >Vandaag</ion-lable>
+      </ion-item>
+    <ion-button color="danger" *ngIf="auth.isAuthenticated$ | async" class="login100-form-btn" (click)="logout()">
+      logout
+    </ion-button>
+  </ion-menu>
+</ion-content>

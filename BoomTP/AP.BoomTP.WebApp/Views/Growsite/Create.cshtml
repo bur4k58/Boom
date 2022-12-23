@@ -1,0 +1,35 @@
+﻿@using AP.BoomTP.WebApp.ViewModels.Growsite
+@model CreateGrowSiteViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "GrowSite - Create";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<form method="post" asp-controller="GrowSite" asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name">Naam</label>
+        <input class="form-control" asp-for="Name">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address">Adress</label>
+        <input class="form-control" asp-for="Address">
+        <div class="invalid-feedback" style="display:block;">
+            <span asp-validation-for="Address"></span>
+        </div>
+    </div>
+    <div class-"form-control">
+        <label asp-for="Map" class="control-label">Afbeelding map</label>
+        <input type="file" name="Map" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary"style="margin-top: 20px">Submit</button>
+</form>
